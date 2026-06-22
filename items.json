@@ -1,0 +1,6 @@
+[
+  { "name": "Milk", "status": "available" },
+  { "name": "Toilet Paper", "status": "low" },
+  { "name": "Coffee Beans", "status": "empty" },
+  { "name": "Dish Soap", "status": "available" }
+]
