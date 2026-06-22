@@ -32,7 +32,7 @@
             font-weight: bold;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        /* Your Status Colors */
+        /* Status Colors */
         .status-available {
             background-color: #d4edda;
             color: #155724;
@@ -61,18 +61,31 @@
     <div class="item-list" id="tracker-container">Loading items...</div>
 
     <script>
-        // Fetches the data from your JSON file automatically
+        // Define priority map: lower number means higher up on the page
+        const priorityOrder = {
+            'empty': 1,
+            'low': 2,
+            'available': 3
+        };
+
         fetch('items.json')
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('tracker-container');
                 container.innerHTML = ''; // Clear loading text
 
+                // SORTING LOGIC: Sort items based on the priority order defined above
+                data.sort((a, b) => {
+                    return priorityOrder[a.status] - priorityOrder[b.status];
+                });
+
+                // Generate the list items
                 data.forEach(item => {
                     const card = document.createElement('div');
                     card.classList.add('item-card');
 
-                    // Map status to correct CSS class and display text
+                    let statusLabel = '';
+
                     if (item.status === 'available') {
                         card.classList.add('status-available');
                         statusLabel = 'Available';
