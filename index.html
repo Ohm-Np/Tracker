@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Household Essentials Tracker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+        }
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .item-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        /* Your Status Colors */
+        .status-available {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 6px solid #28a745;
+        }
+        .status-low {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 6px solid #ffc107;
+        }
+        .status-empty {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 6px solid #dc3545;
+        }
+        .status-text {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🏡 Essential Tracker</h1>
+    <div class="item-list" id="tracker-container">Loading items...</div>
+
+    <script>
+        // Fetches the data from your JSON file automatically
+        fetch('items.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('tracker-container');
+                container.innerHTML = ''; // Clear loading text
+
+                data.forEach(item => {
+                    const card = document.createElement('div');
+                    card.classList.add('item-card');
+
+                    // Map status to correct CSS class and display text
+                    if (item.status === 'available') {
+                        card.classList.add('status-available');
+                        statusLabel = 'Available';
+                    } else if (item.status === 'low') {
+                        card.classList.add('status-low');
+                        statusLabel = 'Running Low';
+                    } else if (item.status === 'empty') {
+                        card.classList.add('status-empty');
+                        statusLabel = 'Out of Stock';
+                    }
+
+                    card.innerHTML = `
+                        <span>${item.name}</span>
+                        <span class="status-text">${statusLabel}</span>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading tracker:', error);
+                document.getElementById('tracker-container').innerText = 'Failed to load items.';
+            });
+    </script>
+</body>
+</html>
