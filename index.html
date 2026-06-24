@@ -13,9 +13,25 @@
             margin: 40px auto;
             padding: 20px;
         }
+        /* Flex container for title and live timestamp */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
         h1 {
-            text-align: center;
+            margin: 0;
+            font-size: 1.8rem;
             color: #4a4a4a;
+        }
+        .last-updated {
+            font-size: 0.8rem;
+            color: #718096;
+            text-align: right;
+            padding-bottom: 4px;
         }
         .item-list {
             display: flex;
@@ -57,10 +73,18 @@
 </head>
 <body>
 
-    <h1>🍦Supply Dashboard🍦</h1>
+    <div class="header-container">
+        <h1>🍦Supply Dashboard🍦</h1>
+        <div class="last-updated" id="update-time">Checking update...</div>
+    </div>
+
     <div class="item-list" id="tracker-container">Loading items...</div>
 
     <script>
+        // Configuration mapped to your GitHub repository details
+        const USERNAME = 'Ohm-Np';
+        const REPO = 'Tracker';
+
         // Define priority map: lower number means higher up on the page
         const priorityOrder = {
             'empty': 1,
@@ -68,6 +92,7 @@
             'available': 3
         };
 
+        // 1. Fetch data items from items.json
         fetch('items.json')
             .then(response => response.json())
             .then(data => {
@@ -107,6 +132,32 @@
             .catch(error => {
                 console.error('Error loading tracker:', error);
                 document.getElementById('tracker-container').innerText = 'Failed to load items.';
+            });
+
+        // 2. Fetch the latest update timestamp for items.json from GitHub's API
+        fetch(`https://api.github.com/repos/${USERNAME}/${REPO}/commits?path=items.json&per_page=1`)
+            .then(response => response.json())
+            .then(commits => {
+                if (commits && commits.length > 0) {
+                    const commitDate = new Date(commits[0].commit.committer.date);
+                    
+                    // Formats the date string to look clean (e.g., "Updated: Oct 24, 2026, 4:30 PM")
+                    const formattedDate = commitDate.toLocaleString(undefined, {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    document.getElementById('update-time').innerText = `Updated: ${formattedDate}`;
+                } else {
+                    document.getElementById('update-time').innerText = '';
+                }
+            })
+            .catch(err => {
+                console.error('Error fetching update time:', err);
+                document.getElementById('update-time').innerText = '';
             });
     </script>
 </body>
