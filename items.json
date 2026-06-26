@@ -48,11 +48,13 @@
   { "name": "Snickers - Peanut Butter", "status": "available" },
   { "name": "Snickers - Caramelo Salato", "status": "available" },
   { "name": "Snickers - Peanuts", "status": "available" },
-  { "name": "Dunkel Schokolade", "status": "avaipable" },
+  { "name": "Dunkel Schokolade", "status": "available" },
   { "name": "Salted Caramel", "status": "available" },
   { "name": "Sahne Grieß", "status": "available" },
   { "name": "Yogurette - Paste", "status": "available" },
   { "name": "Dubai - Pistachio", "status": "available" },
   { "name": "Dubai - Morella Dubai", "status": "available" },
-  { "name": "Dubai - Dunkel Dark", "status": "available" }
+  { "name": "Dubai - Dunkel Dark", "status": "available" },
+  {"name": "Fat", "status: "available" },
+  {"name: "Lube", "status: "low"}
 ]
