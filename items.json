@@ -55,6 +55,6 @@
   { "name": "Dubai - Pistachio", "status": "available" },
   { "name": "Dubai - Morella Dubai", "status": "available" },
   { "name": "Dubai - Dunkel Dark", "status": "available" },
-  {"name": "Fat", "status: "available" },
-  {"name: "Lube", "status: "low"}
+  {"name": "Fat", "status": "available" },
+  {"name: "Lube", "status": "low"}
 ]
