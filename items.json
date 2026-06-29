@@ -20,7 +20,7 @@
   { "name": "Banane - Frucht", "status": "available" },
   { "name": "Banane - Paste", "status": "available" },
   { "name": "Waldmeister", "status": "available" },
-  { "name": "Blutorange", "status": "available" },
+  { "name": "Blutorange", "status": "empty" },
   { "name": "Granatapfel", "status": "available" },
   { "name": "Apfelringe", "status": "empty" },
   { "name": "Wassermelone", "status": "empty" },
